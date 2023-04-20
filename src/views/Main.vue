@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div>Main</div>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px">
+        <Aside />
+      </el-aside>
       <el-container>
         <el-header>Header</el-header>
         <el-main>
@@ -15,10 +16,17 @@
 </template>
 
 <script>
+import Aside from "../components/CommonAside.vue";
 export default {
-  name: "main",
+  components: {
+    Aside,
+  },
 };
 </script>
 
 <style>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
 </style>
