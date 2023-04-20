@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <el-container>
       <el-aside width="auto">
         <Aside />
@@ -28,7 +28,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scope>
+.container {
+  background-color: #efefef;
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;

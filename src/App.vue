@@ -13,7 +13,8 @@ export default {
 <style lang="less">
 html,
 body,
-h3 {
+h3,
+p {
   margin: 0;
   padding: 0;
 }
