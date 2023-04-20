@@ -13,6 +13,7 @@ Vue.use(ElementUI);
 
 import router from './router'
 import store from './store'
+import './api/mock'
 
 Vue.config.productionTip = false
 

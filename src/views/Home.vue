@@ -41,7 +41,7 @@
 
       <el-col :span="16">
         <el-row :gutter="20">
-          <el-col :span="8" v-for="item in orderList" :key="item">
+          <el-col :span="8" v-for="item in orderList" :key="item.desc">
             <el-card class="order-card">
               <div class="order">
                 <div class="left" :style="{ background: item.color }">
@@ -61,11 +61,12 @@
 </template>
 
 <script>
+import { getData } from "../api";
 export default {
   name: "home",
   data() {
     return {
-      tableData: [
+      /*tableData: [
         {
           name: "苹果",
           todayBuy: 100,
@@ -126,46 +127,59 @@ export default {
           monthBuy: 600,
           totalBuy: 700,
         },
-      ],
+      ],*/
       orderList: [
         {
           icon: "success",
           price: "1234",
-          desc: "今日支付订单",
+          desc: "今日支付订单1",
           color: "#2ec7c9",
         },
         {
           icon: "star-on",
           price: "111",
-          desc: "今月支付订单",
+          desc: "今月支付订单2",
           color: "#ffb980",
         },
         {
           icon: "s-goods",
           price: "222",
-          desc: "总计支付订单",
+          desc: "总计支付订单3",
           color: "#5ab1ef",
         },
         {
           icon: "success",
           price: "1234",
-          desc: "今日支付订单",
+          desc: "今日支付订单4",
           color: "#2ec7c9",
         },
         {
           icon: "star-on",
           price: "111",
-          desc: "今月支付订单",
+          desc: "今月支付订单5",
           color: "#ffb980",
         },
         {
           icon: "s-goods",
           price: "222",
-          desc: "总计支付订单",
+          desc: "总计支付订单6",
           color: "#5ab1ef",
         },
       ],
+      tableData: [],
     };
+  },
+  mounted() {
+    this.initData();
+  },
+  methods: {
+    initData() {
+      getData().then(({ data }) => {
+        console.log(data.data.orderData, "data");
+        const { tableData } = data.data;
+        this.tableData = tableData;
+      });
+    },
   },
 };
 </script>
@@ -206,11 +220,8 @@ export default {
   margin-bottom: 20px;
   .order {
     display: flex;
-    // height: 50px;
     .left {
       width: 80px;
-      // height: 50px;
-      // background-color: rgb(59, 220, 222);
       line-height: 60px;
       text-align: center;
       font-size: 20px;
@@ -226,8 +237,6 @@ export default {
       justify-content: center;
       .price {
         font-size: 20px;
-      }
-      .desc {
       }
     }
   }
