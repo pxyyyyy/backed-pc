@@ -11,6 +11,7 @@
       v-for="item in noChildren"
       :key="item.name"
       :index="item.name"
+      @click="cliceMenu(item)"
     >
       <i :class="`el-icon-${item.icon}`"></i>
       <span slot="title">{{ item.label }}</span>
@@ -29,7 +30,9 @@
 
       <!-- 子菜单的子菜单 -->
       <el-menu-item-group v-for="subItem in item.children" :key="subItem.path">
-        <el-menu-item :index="subItem.path">{{ subItem.label }}</el-menu-item>
+        <el-menu-item @click="cliceMenu(subItem)" :index="subItem.path">{{
+          subItem.label
+        }}</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
@@ -49,8 +52,8 @@ export default {
           url: "Home/home",
         },
         {
-          path: "/mail",
-          name: "mail",
+          path: "/mall",
+          name: "mall",
           label: "商品管理",
           icon: "video-play",
           url: "Home/home",
@@ -85,17 +88,25 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    //   菜单路由跳转
+    cliceMenu(item) {
+      // 当前页面路由与点击不一致时才跳转
+      if (
+        this.$route.path !== item.path &&
+        !(this.$route.path == "/home" && item.path == "/")
+      )
+        this.$router.push(item.path);
+    },
+  },
   computed: {
     // 没有子菜单
     noChildren() {
-      console.log("没");
       return this.menuData.filter((item) => !item.children);
     },
 
     // 有子菜单
     hasChildren() {
-      console.log("有子菜单");
       return this.menuData.filter((item) => item.children);
     },
   },
