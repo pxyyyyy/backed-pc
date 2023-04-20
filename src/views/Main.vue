@@ -1,11 +1,13 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="auto">
         <Aside />
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <Header />
+        </el-header>
         <el-main>
           <!-- 子路由出口 -->
           <router-view></router-view>
@@ -17,9 +19,11 @@
 
 <script>
 import Aside from "../components/CommonAside.vue";
+import Header from "../components/CommonHeader.vue";
 export default {
   components: {
     Aside,
+    Header,
   },
 };
 </script>
@@ -28,5 +32,8 @@ export default {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.el-header {
+  padding: 0;
 }
 </style>

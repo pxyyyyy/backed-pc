@@ -2,11 +2,11 @@
   <el-menu
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
-    background-color="#545c64"
+    background-color="#333344"
     text-color="#fff"
   >
     <!-- 没有子菜单 -->
-    <h3>通用后台管理</h3>
+    <h3>{{ isCollapse ? "后台" : "通用后台管理" }}</h3>
     <el-menu-item
       v-for="item in noChildren"
       :key="item.name"
@@ -42,7 +42,6 @@
 export default {
   data() {
     return {
-      isCollapse: false,
       menuData: [
         {
           path: "/",
@@ -104,10 +103,13 @@ export default {
     noChildren() {
       return this.menuData.filter((item) => !item.children);
     },
-
     // 有子菜单
     hasChildren() {
       return this.menuData.filter((item) => item.children);
+    },
+    // 接收vuex的isCollapse
+    isCollapse() {
+      return this.$store.state.tab.isCollapse;
     },
   },
 };
@@ -121,6 +123,7 @@ export default {
 }
 .el-menu {
   height: 100vh;
+  border-right: none;
   h3 {
     color: #ffffff;
     text-align: center;
