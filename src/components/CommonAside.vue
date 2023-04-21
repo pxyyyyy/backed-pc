@@ -122,7 +122,7 @@ export default {
   /* height: 100vh; */
 }
 .el-menu {
-  height: 100vh;
+  height: 100%;
   border-right: none;
   h3 {
     color: #ffffff;

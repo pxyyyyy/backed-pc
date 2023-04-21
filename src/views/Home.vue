@@ -26,7 +26,7 @@
           <el-table
             :data="tableData"
             size="mini"
-            max-height="300"
+            max-height="350"
             style="margin-top: 20px; width: 100%"
           >
             <el-table-column prop="name" label="水果"> </el-table-column>
@@ -55,12 +55,34 @@
             </el-card>
           </el-col>
         </el-row>
+        <el-row class="charts">
+          <el-card>
+            <!-- 折线图 -->
+            <div id="chart1" style="width: 100%; height: 250px"></div>
+          </el-card>
+        </el-row>
+        <el-row :gutter="20" style="margin-top: 10px" class="charts">
+          <el-col :span="12">
+            <el-card>
+              <!-- 柱形图 -->
+              <div id="chart2" style="width: 100%; height: 250px"></div>
+            </el-card>
+          </el-col>
+          <el-col :span="12">
+            <el-card>
+              <!-- 饼图 -->
+              <div id="chart3" style="width: 100%; height: 250px"></div>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+// 引用echarts
+import * as echarts from "echarts";
 import { getData } from "../api";
 export default {
   name: "home",
@@ -167,6 +189,17 @@ export default {
         },
       ],
       tableData: [],
+      userData: [],
+      userDataX: [],
+      chart2Data1: [],
+      chart2Data2: [],
+      videoData: [],
+      orderData: [],
+      orderData1: [],
+      orderData2: [],
+      orderData3: [],
+      orderDataX: [],
+      myChart1: [],
     };
   },
   mounted() {
@@ -175,9 +208,150 @@ export default {
   methods: {
     initData() {
       getData().then(({ data }) => {
-        console.log(data.data.orderData, "data");
-        const { tableData } = data.data;
+        console.log(data.data, "data");
+        const { tableData, userData, videoData, orderData } = data.data;
         this.tableData = tableData;
+
+        this.userData = userData;
+
+        this.videoData = videoData;
+
+        // 折线图数据
+        this.orderData = orderData;
+
+        this.init();
+      });
+    },
+    init() {
+      this.initChart1();
+      this.initChart2();
+      this.initChart3();
+    },
+    // 折线图
+    initChart1() {
+      const myChart1 = echarts.init(document.getElementById("chart1"));
+      var myChart1option = {};
+      (myChart1option.tooltip = {
+        trigger: "axis",
+      }),
+        // 处理数据
+        (myChart1option.xAxis = { data: this.orderData.date }); //X轴
+      myChart1option.yAxis = {}; //Y轴
+      const xAxis = Object.keys(this.orderData.data[0]);
+      myChart1option.legend = { data: xAxis }; //图例
+      myChart1option.series = []; //数据
+      xAxis.forEach((key) => {
+        myChart1option.series.push({
+          name: key,
+          data: this.orderData.data.map((item) => item[key]),
+          type: "line",
+        });
+      });
+      console.log(myChart1option, "myChart1option");
+      // 设置图表
+      myChart1.setOption(myChart1option);
+    },
+    /*initChart1() {
+      this.myChart1 = echarts.init(document.getElementById("chart1"));
+      this.myChart1.setOption({
+        tooltip: {},
+        legend: { data: this.orderDataX },
+        xAxis: {
+          data: this.orderData.date,
+        },
+        yAxis: {},
+        series: [
+          {
+            data: this.orderData1,
+            type: "line",
+            stack: "x",
+          },
+          {
+            data: this.orderData2,
+            type: "line",
+            stack: "x",
+          },
+          {
+            data: this.orderData3,
+            type: "line",
+            stack: "x",
+          },
+        ],
+      });
+    },*/
+    // 柱状图
+    /*initChart2() {
+      let myChart = echarts.init(document.getElementById("chart2"));
+      const chart2Option = {};
+      chart2Option.xAxis = { data: this.userDataX };
+      chart2Option.yAxis = {};
+      chart2Option.series = [];
+      // const xAxis = Object.keys(this.userDate[1]);
+      this.userDate.forEach(item => {
+        if(item.active){
+
+        }
+      })
+      console.log(xAxis, "xAxis");
+
+      chart2Option.series.push({
+        data: this.orderData.data.map((item) => item[key]),
+        type: "bar",
+        stack: "x",
+      });
+      myChart.setOption(chart2Option);
+    },*/
+
+    initChart2() {
+      let myChart = echarts.init(document.getElementById("chart2"));
+      myChart.setOption({
+        xAxis: {
+          data: this.userData.map((item) => item.date),
+        },
+        yAxis: {},
+        legend: {
+          textStyle: {
+            color: "#333",
+          },
+        }, //图例
+        grid: { left: "20%" },
+        tooltip: {
+          trigger: "axis",
+        },
+        color: ["#2ec7c9", "#b6a2de"],
+        series: [
+          {
+            name: "新增用户",
+            data: this.userData.map((item) => item.new),
+            type: "bar",
+            stack: "x",
+          },
+          {
+            name: "活跃用户",
+            data: this.userData.map((item) => item.active),
+            type: "bar",
+            stack: "y",
+          },
+        ],
+      });
+    },
+    initChart3() {
+      let myChart = echarts.init(document.getElementById("chart3"));
+      myChart.setOption({
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          textStyle: {
+            color: "#333",
+          },
+        }, //图例
+        series: [
+          {
+            type: "pie",
+            data: this.videoData,
+          },
+        ],
       });
     },
   },
@@ -217,12 +391,12 @@ export default {
   }
 }
 .order-card {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   .order {
     display: flex;
     .left {
-      width: 80px;
-      line-height: 60px;
+      width: 60px;
+      line-height: 48px;
       text-align: center;
       font-size: 20px;
       i {
@@ -247,6 +421,12 @@ export default {
   }
   .el-card {
     border: none;
+  }
+}
+.charts {
+  .el-card__body,
+  .el-main {
+    padding: 20px 0 0 0;
   }
 }
 </style>

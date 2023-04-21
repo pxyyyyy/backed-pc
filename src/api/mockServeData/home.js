@@ -33,26 +33,29 @@ export default {
                     { date: '周一', new: 5, active: 200 },
                     { date: '周二', new: 6, active: 100 },
                     { date: '周三', new: 7, active: 400 },
-                    { date: '周四', new: 8, active: 300 },
-                    { date: '周五', new: 4, active: 330 },
+                    { date: '周四', new: 800, active: 300 },
+                    { date: '周五', new: 40, active: 330 },
                     { date: '周六', new: 3, active: 220 },
-                    { date: '周七', new: 5, active: 560 }
+                    { date: '周七', new: 50, active: 560 }
                 ],
                 // 订单数据
-                orderData: [
-                    { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: 'vivo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: '苹果', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: '魅族', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                ],
+                orderData: {
+                    // data: [
+                    //     { name: 'oppo', todayBuy: 1900, monthBuy: 2200, totalBuy: 56000 },
+                    //     { name: 'vivo', todayBuy: 2900, monthBuy: 3400, totalBuy: 2340 },
+                    //     { name: '苹果', todayBuy: 9300, monthBuy: 340, totalBuy: 34300 },
+                    //     { name: '魅族', todayBuy: 2900, monthBuy: 32430, totalBuy: 34000 },
+                    //     { name: 'oppo', todayBuy: 9300, monthBuy: 4300, totalBuy: 234300 },
+                    //     { name: 'oppo', todayBuy: 9100, monthBuy: 30340, totalBuy: 240 },
+                    // ],
+                    data: List,
+                    date: ['20191001', '20191002', '20191003', '20191004', '20191005', '20191006', '20191007']
+                },
                 tableData: [
                     { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
                     { name: 'vivo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
                     { name: '苹果', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
                     { name: '魅族', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
-                    { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
                     { name: 'oppo', todayBuy: 900, monthBuy: 3000, totalBuy: 22000 },
                 ]
             }
