@@ -21,14 +21,15 @@ const routes = [
         component: Main,
         redirect: '/home',//重定向
         children: [
-            { path: '/home', component: Home },
-            { path: '/user', component: User },
-            { path: '/mall', component: Mall },
-            { path: '/page1', component: PageOne },
-            { path: '/page2', component: PageTwo },
+            { name: 'home', path: '/home', component: Home },
+            { name: 'user', path: '/user', component: User },
+            { name: 'mall', path: '/mall', component: Mall },
+            { name: 'page1', path: '/page1', component: PageOne },
+            { name: 'page2', path: '/page2', component: PageTwo },
         ]
     },
     {
+        name: 'login',
         path: '/login',
         component: Login
     }
@@ -42,16 +43,19 @@ const router = new VueRouter({
 
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
-    console.log(to.path);
-    if (to.path === '/login') {
+    //获取token
+    const token = Cookie.get('token')
+    console.log(token, 'token');
+    // 没有token和不是去登录页，跳转到登录页
+    if (!token && to.path != '/login') {
+        next('login')
+    }
+    // 有token去登录页面不给过
+    else if (token && to.path == '/login') {
+        next({ name: 'home' })
+    }
+    else {
         next()
-    } else {
-        //获取token
-        const token = Cookie.get('token')
-        console.log(token, 'token');
-        if (!token) { next('/login') }
-        else if (token) { next() }
-        // else { next() }
     }
 })
 
