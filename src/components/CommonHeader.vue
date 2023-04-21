@@ -2,13 +2,27 @@
   <div class="header-container">
     <div class="left-content">
       <!-- 展开关闭侧边栏 -->
-      <el-button
-        @click="handleMenu"
-        icon="el-icon-menu"
-        size="mini"
-      ></el-button>
+      <div>
+        <el-button
+          @click="handleMenu"
+          icon="el-icon-menu"
+          size="mini"
+        ></el-button>
+      </div>
+
       <!-- 面包屑 -->
-      <span class="title">首页</span>
+      <!-- <span class="title">首页</span> -->
+      <div class="breadcrumb">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item
+            v-for="item in tags"
+            :key="item.path"
+            :to="{ path: item.path }"
+            :replace="true"
+            >{{ item.label }}</el-breadcrumb-item
+          >
+        </el-breadcrumb>
+      </div>
     </div>
     <div class="right-content">
       <img src="@/assets/headImg.jpg" alt="" />
@@ -17,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
@@ -25,6 +40,11 @@ export default {
     handleMenu() {
       this.$store.commit("collapseMenu");
     },
+  },
+  computed: {
+    ...mapState({
+      tags: (state) => state.tab.tabList,
+    }),
   },
 };
 </script>
@@ -38,10 +58,22 @@ export default {
   display: flex;
   justify-content: space-between;
   .left-content {
+    display: flex;
+    align-items: center;
     margin-left: 20px;
     .title {
       color: #ffffff;
       margin-left: 20px;
+    }
+    .breadcrumb {
+      margin-left: 20px;
+      .el-breadcrumb__inner a,
+      .el-breadcrumb__inner.is-link {
+        color: #777777;
+      }
+      .el-breadcrumb__inner {
+        color: #ffffff;
+      }
     }
   }
   .right-content {

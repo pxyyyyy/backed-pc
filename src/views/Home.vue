@@ -231,11 +231,11 @@ export default {
     initChart1() {
       const myChart1 = echarts.init(document.getElementById("chart1"));
       var myChart1option = {};
-      (myChart1option.tooltip = {
+      myChart1option.tooltip = {
         trigger: "axis",
-      }),
-        // 处理数据
-        (myChart1option.xAxis = { data: this.orderData.date }); //X轴
+      };
+      // 处理数据
+      myChart1option.xAxis = { data: this.orderData.date }; //X轴
       myChart1option.yAxis = {}; //Y轴
       const xAxis = Object.keys(this.orderData.data[0]);
       myChart1option.legend = { data: xAxis }; //图例
