@@ -45,7 +45,6 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     //获取token
     const token = Cookie.get('token')
-    console.log(token, 'token');
     // 没有token和不是去登录页，跳转到登录页
     if (!token && to.path != '/login') {
         next('login')

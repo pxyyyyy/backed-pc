@@ -42,6 +42,7 @@
 export default {
   data() {
     return {
+      /*
       menuData: [
         {
           path: "/",
@@ -84,7 +85,7 @@ export default {
             },
           ],
         },
-      ],
+      ],*/
     };
   },
   methods: {
@@ -101,6 +102,14 @@ export default {
     },
   },
   computed: {
+    // 接收菜单数据
+    menuData() {
+      // 判断当前数据，如果本地缓存中没有数据，则从store获取
+      return (
+        JSON.parse(localStorage.getItem("menuData")) ||
+        this.$store.state.tab.menuList
+      );
+    },
     // 没有子菜单
     noChildren() {
       return this.menuData.filter((item) => !item.children);

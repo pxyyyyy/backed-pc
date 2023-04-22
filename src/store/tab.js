@@ -1,6 +1,8 @@
 export default {
     state: {
-        isCollapse: false,//控制菜单展开或收起
+        //控制菜单展开或收起
+        isCollapse: false,
+        //面包屑数据
         tabList: [
             {
                 path: "/",
@@ -9,7 +11,10 @@ export default {
                 icon: "s-home",
                 url: "Home/home",
             },
-        ],//面包屑数据
+        ],
+        // 菜单数据
+        menuList: []
+
     },
     mutations: {
         // 修改菜单展开收起方法
@@ -26,6 +31,15 @@ export default {
                     state.tabList.push(val)
                 }
             }
-        }
+        },
+        // 更新右侧导航菜单
+        updataMenu(state, val) {
+            // 持久化处理
+            localStorage.setItem("menuData", JSON.stringify(val))
+            state.menuList = val
+        },
+        // 动态路由
+        addMenu(state, router) { }
+
     }
 }

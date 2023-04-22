@@ -29,6 +29,7 @@
 <script>
 import Mock from "mockjs";
 import Cookie from "js-cookie";
+import { getMenu } from "../api";
 export default {
   data() {
     return {
@@ -47,9 +48,19 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 通过验证
-          const token = Mock.Random.guid();
-          Cookie.set("token", token);
-          this.$router.push("/home");
+          console.log(this.ruleForm);
+          getMenu(this.ruleForm).then(({ data }) => {
+            if (data.code === 200) {
+              // 获取菜单数据存入store中
+              const { menuData } = data.data;
+              this.$store.commit("updataMenu", menuData);
+              Cookie.set("token", data.data.token);
+
+              this.$router.push("/home");
+            } else {
+              this.$message.error(data.data.msg);
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;

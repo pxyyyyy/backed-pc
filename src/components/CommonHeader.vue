@@ -25,13 +25,21 @@
       </div>
     </div>
     <div class="right-content">
-      <img src="@/assets/headImg.jpg" alt="" />
+      <el-dropdown @command="handleCommand">
+        <img src="@/assets/headImg.jpg" alt="" />
+
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="a">个人中心</el-dropdown-item>
+          <el-dropdown-item command="logout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Cookie from "js-cookie";
 export default {
   data() {
     return {};
@@ -39,6 +47,13 @@ export default {
   methods: {
     handleMenu() {
       this.$store.commit("collapseMenu");
+    },
+    handleCommand(command) {
+      if (command == "logout") {
+        Cookie.remove("token");
+        this.$router.push("/login");
+        this.$message.success("退出登录");
+      }
     },
   },
   computed: {
@@ -54,9 +69,9 @@ export default {
   background-color: #333;
   width: 100%;
   height: 60px;
-  line-height: 60px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .left-content {
     display: flex;
     align-items: center;
@@ -80,8 +95,8 @@ export default {
     margin-right: 20px;
     img {
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
     }
   }
 }

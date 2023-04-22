@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
 import homeApi from './mockServeData/home'
+import permission from './mockServeData/permission'
 
 // 定义mock请求拦截
 // Mock.mock('/api/home/getData', 'get', function () {
@@ -9,4 +10,7 @@ import homeApi from './mockServeData/home'
 //     return []
 // })
 
+// 首页数据
 Mock.mock('/api/home/getData', homeApi.getStaticalData)
+// 登录数据post
+Mock.mock(/api\/permission\/getMenu/, 'post', permission.getMenu)
