@@ -9,6 +9,8 @@ const http = axios.create({
 // 请求拦截器
 http.interceptors.request.use(config => {
     // 对发送请求做些什么
+    // let headers = 'application/json;charset=UTF-8'
+    // config.headers['Content-Type'] = headers
     return config;
 }, err => {
     // 对请求错误做些什么
