@@ -52,10 +52,10 @@ export default {
           getMenu(this.ruleForm).then(({ data }) => {
             if (data.code === 200) {
               // 获取菜单数据存入store中
-              const { menuData } = data.data;
+              const { menuData, permissionList } = data.data;
               this.$store.commit("updataMenu", menuData);
+              this.$store.commit("changeBtn", permissionList);
               Cookie.set("token", data.data.token);
-
               this.$router.push("/home");
             } else {
               this.$message.error(data.data.msg);

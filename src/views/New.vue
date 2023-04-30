@@ -54,7 +54,7 @@
 import axios from "axios";
 import { getNew, addNew, delNew } from "../api";
 export default {
-  name: "user",
+  name: "new",
   data() {
     return {
       input: "",
@@ -128,11 +128,12 @@ export default {
 }
 .pagination {
   width: 100%;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
   position: relative;
+  background-color: #fff;
   .el-pagination {
     position: absolute;
-    top: 0px;
+    top: 10px;
     right: 0px;
   }
 }

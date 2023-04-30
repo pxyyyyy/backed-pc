@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie'
 export default {
     state: {
         //控制菜单展开或收起
@@ -13,7 +14,8 @@ export default {
             },
         ],
         // 菜单数据
-        menuList: []
+        menuList: [],
+        permissionList: []
 
     },
     mutations: {
@@ -38,8 +40,18 @@ export default {
             localStorage.setItem("menuData", JSON.stringify(val))
             state.menuList = val
         },
-        // 动态路由
-        addMenu(state, router) { }
-
+        // 动态注册路由,防止输入url时可以进入页面
+        addMenu(state, router) {
+            // 判断缓存中是否存在数据
+            if (!Cookie.get('menuDtat')) return
+            const menuData = JSON.parse(Cookie.get('menuData'))
+            state.menuList = menuData
+        },
+        // 按钮权限控制
+        changeBtn(state, val) {
+            localStorage.setItem("permissionList", JSON.stringify(val))
+            state.permissionList = val
+            console.log(state.permissionList, 'permissionList');
+        }
     }
 }

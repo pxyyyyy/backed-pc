@@ -1,11 +1,15 @@
 // 引用路由
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { fnAddDynamicMenuRoutes, getRoute } from '@/router/getAsyncRouter'
 import Cookie from 'js-cookie'
+import { getMenu } from '../api'
 import Login from '../views/login'
 import Home from '../views/Home'
 import User from '../views/User'
+import New from '../views/New'
 import Main from '../views/Main'
+import Permission from '../views/Permission'
 import Mall from '../views/Mall'
 import PageOne from '../views/PageOne'
 import PageTwo from '../views/PageTwo'
@@ -23,7 +27,9 @@ const routes = [
         children: [
             { name: 'home', path: '/home', component: Home },
             { name: 'user', path: '/user', component: User },
+            { name: 'new', path: '/new', component: New },
             { name: 'mall', path: '/mall', component: Mall },
+            { name: 'permission', path: '/permission', component: Permission },
             { name: 'page1', path: '/page1', component: PageOne },
             { name: 'page2', path: '/page2', component: PageTwo },
         ]
@@ -34,6 +40,12 @@ const routes = [
         component: Login
     }
 ]
+
+
+
+
+
+
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 // 你还可以传别的配置参数, 不过先这么简单着吧。
@@ -54,9 +66,27 @@ router.beforeEach((to, from, next) => {
         next({ name: 'home' })
     }
     else {
+        // let menuList = JSON.parse(localStorage.getItem('menuData'))
+        // console.log(menuList, 'menuList');
+        // // let menuRouter = fnAddDynamicMenuRoutes(menuList[0].children)
+        // // console.log(menuRouter, 'menuRouter');
+        // // console.log(menuList, 'menuList');
+        // console.log(routes, 'routes');
+        // if (menuList) {
+        //     let routeList = fnAddDynamicMenuRoutes(menuList)
+        //     console.log(routeList, 'routeList');
+        //     router.addRoutes(routeList)
+        //     // routes[0].children = routeList
+        //     console.log(routes, 'routes');
+        // }
+
         next()
     }
 })
+
+
+
+
 
 
 // 路由重复点击出错（降级处理3.0.0）
