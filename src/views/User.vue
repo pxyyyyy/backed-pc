@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>用户管理</h1>
     <div class="header">
       <el-button type="primary" @click="addNews">新增</el-button>
       <div>

@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="header">
-      <el-button type="primary" @click="addNews">新增</el-button>
+      <el-button type="primary" @click="addNews" v-permission="'add'"
+        >新增</el-button
+      >
       <div>
         <el-input v-model="input" placeholder="请输入搜索内容" />
-        <el-button type="primary">搜索</el-button>
+        <el-button type="primary" v-permission="'search'">搜索</el-button>
       </div>
     </div>
     <div class="table">
@@ -24,10 +26,18 @@
         <el-table-column prop="add_time" label="时间"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
+            <el-button
+              @click="handleClick(scope.row)"
+              type="text"
+              size="small"
+              v-permission="'edit'"
               >编辑</el-button
             >
-            <el-button type="text" size="small" @click="del(scope.row.id)"
+            <el-button
+              type="text"
+              size="small"
+              @click="del(scope.row.id)"
+              v-permission="'del'"
               >删除</el-button
             >
           </template>
@@ -52,8 +62,12 @@
 
 <script>
 import axios from "axios";
+import permission from "../directives/permission";
 import { getNew, addNew, delNew } from "../api";
 export default {
+  directives: {
+    permission: permission,
+  },
   name: "new",
   data() {
     return {
@@ -64,10 +78,12 @@ export default {
         page: 1,
         pageSize: 5,
       },
+      permission: [],
     };
   },
   created() {
     this.initData();
+
     // axios.get("/api/news", { params }).then((res) => {
     //   console.log(res);
     //   this.tableData = res.data.data.list;

@@ -121,7 +121,7 @@ const { list } = Mock.mock({
     ],
 })
 const getQuery = (url, name) => {
-    console.log(url, name);
+    // console.log(url, name);
     const index = url.indexOf('?')
     // 有参数
     if (index !== -1) {
@@ -131,7 +131,7 @@ const getQuery = (url, name) => {
             const queryArr = queryStrArr[i].split('=')
             console.log();
             if (queryArr[0] === name) {
-                console.log(queryArr[1]);
+                // console.log(queryArr[1]);
                 return queryArr[1]
             }
         }
@@ -147,17 +147,17 @@ const getQuery = (url, name) => {
     return null
 }
 export const newList = (options) => {
-    console.log(options, 'option');
+    // console.log(options, 'option');
     let page = getQuery(options.url, 'page')
     const pageSize = getQuery(options.url, 'pageSize')
-    console.log(page, pageSize, 'page22');
+    // console.log(page, pageSize, 'page22');
     // 数据起始位置：(page-1)*pageSize  结束位置: page*pageSize
     const start = (page - 1) * pageSize
     const end = page * pageSize
     // 总页数
     const totalPage = Math.ceil(list.length / pageSize)
     const newList = page > totalPage ? [] : list.slice(start, end)
-    console.log(newList, 'newList');
+    // console.log(newList, 'newList');
     return Mock.mock({
         code: 200,
         data: {
@@ -171,7 +171,7 @@ export const newList = (options) => {
 
 export default {
     newList: (options) => {
-        console.log(options, 'option');
+        // console.log(options, 'option');
         let page = getQuery(options.url, 'page')
         const pageSize = getQuery(options.url, 'pageSize')
         // 数据起始位置：(page-1)*pageSize  结束位置: page*pageSize

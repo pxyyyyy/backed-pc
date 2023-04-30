@@ -79,7 +79,7 @@ router.beforeEach((to, from, next) => {
         //     // routes[0].children = routeList
         //     console.log(routes, 'routes');
         // }
-
+        router.app.$options.store.commit('routeNameChange', to.name)
         next()
     }
 })

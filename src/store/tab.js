@@ -15,8 +15,7 @@ export default {
         ],
         // 菜单数据
         menuList: [],
-        permissionList: []
-
+        permission: [],//当前路由权限
     },
     mutations: {
         // 修改菜单展开收起方法
@@ -48,10 +47,19 @@ export default {
             state.menuList = menuData
         },
         // 按钮权限控制
-        changeBtn(state, val) {
-            localStorage.setItem("permissionList", JSON.stringify(val))
-            state.permissionList = val
-            console.log(state.permissionList, 'permissionList');
+        routeNameChange(state, val) {
+            state.permission = []
+            //val 当前路由name
+            // permissionList 所有按钮权限
+            let permissionList = JSON.parse(localStorage.getItem('permissionList'))
+            permissionList.forEach((item) => {
+                let key = item.split(":")[0];
+                if (val == key) {
+                    state.permission.push(item.split(":")[1]);
+                    localStorage.setItem("permissions", JSON.stringify(state.permission))
+                }
+            });
+            console.log(state.permission, '按钮权限');
         }
     }
 }

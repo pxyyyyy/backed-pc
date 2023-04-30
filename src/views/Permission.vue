@@ -17,11 +17,6 @@ export default {
   data() {
     return {};
   },
-  created() {
-    let permissions = ["del", "edit"];
-    localStorage.setItem("permissions", JSON.stringify(permissions));
-    console.log(JSON.parse(localStorage.getItem("permissions")));
-  },
 };
 </script>
 

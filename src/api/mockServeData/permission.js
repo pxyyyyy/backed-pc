@@ -4,7 +4,7 @@ export default {
         const { account, password } = JSON.parse(config.body)
         // 先判断用户是否存在
         // 判断账号密码是否对应
-        if (account === 'admin' && password === 'admin') {
+        if (account === '1' && password === '1') {
             return {
                 code: 200,
                 data: {
@@ -77,6 +77,11 @@ export default {
                         "user:add",
                         "user:edit",
                         "user:del",
+                        "new:del",
+                        "permission:del",
+                        "permission:add",
+                        "permission:search",
+                        "permission:edit",
                     ],
                     "userId": 10003,
                     token: Mock.Random.guid(),

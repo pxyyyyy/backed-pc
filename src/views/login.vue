@@ -54,7 +54,11 @@ export default {
               // 获取菜单数据存入store中
               const { menuData, permissionList } = data.data;
               this.$store.commit("updataMenu", menuData);
-              this.$store.commit("changeBtn", permissionList);
+              // 全部按钮权限
+              localStorage.setItem(
+                "permissionList",
+                JSON.stringify(permissionList)
+              );
               Cookie.set("token", data.data.token);
               this.$router.push("/home");
             } else {
